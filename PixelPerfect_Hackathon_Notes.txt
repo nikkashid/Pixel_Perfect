@@ -1,0 +1,25 @@
+PixelPerfect AI - Hackathon Presentation Talking Points
+
+1. The Problem: "The Logic-Visual Gap"
+   - Modern QA is DOM-based or Pixel-based.
+   - Pixel-diffing is brittle (fails on minor antialiasing or device differences).
+   - "Green" tests often mask bad UX.
+
+2. Our Innovation: "Intent-Awareness"
+   - We don't just compare pixels; we compare INTENT.
+   - Using Multi-modal LLMs (like Gemini) to understand the design description vs. the final render.
+   - Bridging the gap between Figma (Design) and Compose (Code).
+
+3. The Workflow:
+   - Capture: Android SDK takes a snapshot of the component.
+   - Fetch: Connect to Figma API to get the latest source of truth.
+   - Analyze: AI determines if a 2-pixel shift is a "Ghost Regression" (ignore) or a "UX Failure" (block build).
+   - Report: Actionable feedback delivered in the PR.
+
+4. Competitive Advantage:
+   - Unlike Percy or Applitools which are static, we are Dynamic and Contextual.
+   - SSoT Governance: The design file is the LIVE truth.
+
+5. Future Scaling:
+   - Predictive skill mapping for UI stability.
+   - Cross-platform support (iOS, Web).
