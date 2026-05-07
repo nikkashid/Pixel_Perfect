@@ -1,67 +1,42 @@
 # PixelPerfect AI - Hackathon Implementation Guide
 
 ## 1. Core Vision & Problem Statement
-PixelPerfect AI solves the **"Logic-Visual Gap"** in modern development. While traditional tests confirm that code *runs*, they fail to verify if the code honors the **Design Intent**. 
+PixelPerfect AI solves the **"Logic-Visual Gap"** in modern development. Traditional QA verifies if code *runs*, but PixelPerfect AI verifies if the code honors the **Design Intent**. 
 
-Our solution moves the QA paradigm from brittle pixel-matching to **Intent-Aware Visual Assurance** using Multi-modal LLMs.
+Our solution introduces **Intent-Aware Visual Assurance**, using Multi-modal LLMs to distinguish between negligible "Technical Noise" and critical "UX Regressions."
 
 ---
 
 ## 2. Technical Architecture
 
 ### A. Android Client (SDK)
-- **Settings Dashboard**: A high-fidelity replication of the app interface (Settings UI) with an integrated "Scan & Match" workflow.
-- **Component Capture**: `CaptureUtils` captures real-time snapshots of the implementation.
-- **Figma Connector**: `FigmaService` uses the Figma REST API to fetch live, high-resolution renders of the "Source of Truth" design.
-- **URL Parser**: `FigmaUrlParser` extracts File Keys and Node IDs from standard Figma prototype/design links.
+- **High-Fidelity UI**: A professional Android Settings screen built with Jetpack Compose.
+- **Scan & Match Workflow**: Integrated "Eye" icon in the Top Bar to trigger real-time analysis.
+- **Laser Scan Animation**: A visual horizontal beam that scans the UI, providing a high-tech "AI feel."
+- **Capture Utility**: `CaptureUtils` takes real-time, high-resolution snapshots of the phone screen.
 
-### B. AI Engine (Gemini 1.5 Pro)
-- **Multi-modal Analysis**: Uses `model.generate_content([design, reality, prompt])` to compare the two images.
-- **Intent-Aware Prompting**: Instructed to ignore "Technical Noise" (anti-aliasing, rendering shifts) and focus on UX discrepancies.
-- **Actionable Feedback**: Classifies results as `MATCH`, `TECHNICAL_NOISE`, or `VISUAL_REGRESSION` and provides specific fix suggestions.
+### B. AI Engine (Gemini 2.0 Flash)
+- **Cutting-Edge Intelligence**: Powered by **Gemini 2.0 Flash**, the latest multimodal model from Google, capable of sub-pixel visual reasoning.
+- **Intent-Aware Prompting**: Instructions ensure the AI ignores rendering shifts and focuses on meaningful design violations.
+- **Clean Reporting**: Automatically cleans markdown formatting for a professional, plain-text developer report.
 
 ---
 
 ## 3. Key Features & Progress ✅
 
-- [x] **"Scan & Match" Workflow**: Top-right Eye icon triggers the end-to-end analysis.
-- [x] **Live Figma Fetching**: Integrated OkHttp networking to pull live renders from Figma Node IDs.
-- [x] **AI Integration**: Full Google AI SDK (Gemini) integration with custom prompts.
-- [x] **Expert QA Reporting**: Full-screen `VisualQAOverlay` with side-by-side comparison and detailed "Findings" card.
-- [x] **Secrets Management**: Integrated `secrets-gradle-plugin` to protect API keys.
+- [x] **Settings Implementation**: Full Material 3 screen matching Figma design.
+- [x] **Live AI Analysis**: 100% integrated with Google Generative AI SDK.
+- [x] **Triple-Check Strategy**: 
+    - **Level 1**: Live Figma Fetch via REST API.
+    - **Level 2**: Local PNG Fallback (`figma_reference.png`).
+    - **Level 3**: General AI UI Audit (Expert Mode).
+- [x] **Expert QA Reporting**: Clean, iOS/Android hybrid "Findings" overlay with actionable fix suggestions.
 
 ---
 
-## 4. Developer Setup (Your Next Steps) 🛠️
+## 4. Presentation Script (Team Daredevil) 🎤
 
-### 1. Configure Secrets
-Open `local.properties` and add your real tokens:
-```properties
-GEMINI_API_KEY=AIzaSy... (from Google AI Studio)
-FIGMA_TOKEN=figd_... (from Figma Settings)
-```
-
-### 2. Verify Connectivity
-- Ensure the device/emulator has **Internet access**.
-- Check `AndroidManifest.xml` for `<uses-permission android:name="android.permission.INTERNET" />`.
-
-### 3. Test the "Break-Fix" Flow
-1. Change a visual property in `MainActivity.kt` (e.g., change a font weight or color).
-2. Run the app and click the **Eye icon** (Top Right).
-3. Observe the AI identifying the regression in the **Findings** report.
-
----
-
-## 5. Presentation Strategy 🎤
-
-### The "Hook"
-Show the **Settings Screen**. It looks great, but is it perfect? Most developers would say "Yes," but PixelPerfect AI knows better.
-
-### The "Magic"
-1. Paste the Figma Link.
-2. Click **Scan**.
-3. Show the **Loading State**: "Fetching Figma design and analyzing with AI..."
-4. Reveal the **Findings Report**: Point out how the AI caught the "Regular" font weight when the design called for "Bold," and how it suggested the exact fix.
-
-### The "Value"
-Explain that this removes the "Velocity Tax" of manual design reviews and eliminates "Ghost Regressions."
+- **The Hook**: "Our UI looks perfect to the human eye, but let's see what Gemini 2.0 thinks."
+- **The Scan**: Click the icon. "The laser is scanning the implementation and comparing it live against our Figma design intent."
+- **The Reveal**: Show the report. "The AI caught the lowercase 'p' in 'Edit profile' and the missing disclosure arrows. It even recognized that our icons are 'solid' while the design intent was 'outline'."
+- **The Value**: "This isn't just pixel-diffing; it's **Design Intelligence** integrated directly into the developer workflow."

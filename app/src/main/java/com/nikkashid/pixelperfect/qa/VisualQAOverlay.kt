@@ -34,18 +34,18 @@ fun VisualQAOverlay(
     ) {
         Surface(
             modifier = Modifier.fillMaxSize(),
-            color = Color(0xFFF2F2F7) // Standard background gray
+            color = Color(0xFFF2F2F7) // Light gray backdrop
         ) {
             Column(
                 modifier = Modifier
                     .fillMaxSize()
                     .verticalScroll(rememberScrollState())
             ) {
-                // Top Navigation Bar
+                // Top Header
                 Row(
                     modifier = Modifier
                         .fillMaxWidth()
-                        .padding(16.dp),
+                        .padding(20.dp),
                     horizontalArrangement = Arrangement.SpaceBetween,
                     verticalAlignment = Alignment.CenterVertically
                 ) {
@@ -53,93 +53,95 @@ fun VisualQAOverlay(
                         Icon(
                             imageVector = Icons.Default.AutoAwesome,
                             contentDescription = null,
-                            tint = Color(0xFFB066FF), // Purple sparkle
+                            tint = Color(0xFFB066FF),
                             modifier = Modifier.size(28.dp)
                         )
-                        Spacer(modifier = Modifier.width(8.dp))
+                        Spacer(modifier = Modifier.width(12.dp))
                         Text(
                             text = "AI UI Analysis",
                             style = MaterialTheme.typography.headlineSmall,
                             fontWeight = FontWeight.Bold,
-                            fontSize = 22.sp
+                            fontSize = 22.sp,
+                            color = Color.Black
                         )
                     }
                     Button(
                         onClick = onDismiss,
                         colors = ButtonDefaults.buttonColors(containerColor = Color.White, contentColor = Color.Black),
-                        shape = RoundedCornerShape(20.dp),
+                        shape = RoundedCornerShape(24.dp),
                         elevation = ButtonDefaults.buttonElevation(defaultElevation = 2.dp)
                     ) {
-                        Text("Done", fontWeight = FontWeight.Bold)
+                        Text("Done", fontWeight = FontWeight.SemiBold)
                     }
                 }
 
-                // Implementation Preview Label
-                Text(
-                    text = "Current Implementation",
-                    modifier = Modifier.padding(horizontal = 16.dp),
-                    color = Color.Gray,
-                    fontSize = 14.sp
-                )
-
-                // Small Implementation Image (matching Screenshot 3)
+                // Small vertical implementation preview
                 Box(
                     modifier = Modifier
                         .fillMaxWidth()
-                        .padding(16.dp),
+                        .padding(bottom = 24.dp),
                     contentAlignment = Alignment.Center
                 ) {
-                    Box(
-                        modifier = Modifier
-                            .width(120.dp)
-                            .height(240.dp)
-                            .clip(RoundedCornerShape(8.dp))
-                            .background(Color.White)
-                            .padding(4.dp)
-                    ) {
-                        result.implementationImage?.let {
-                            Image(
-                                bitmap = it.asImageBitmap(),
-                                contentDescription = "Implementation",
-                                modifier = Modifier.fillMaxSize(),
-                                contentScale = ContentScale.FillBounds
-                            )
-                        } ?: Box(
-                            modifier = Modifier.fillMaxSize().background(Color(0xFFE5E5EA)),
-                            contentAlignment = Alignment.Center
+                    Column(horizontalAlignment = Alignment.CenterHorizontally) {
+                        Text(
+                            text = "Current Implementation",
+                            style = MaterialTheme.typography.labelMedium,
+                            color = Color.Gray,
+                            modifier = Modifier.padding(bottom = 8.dp)
+                        )
+                        Box(
+                            modifier = Modifier
+                                .width(100.dp)
+                                .height(200.dp)
+                                .clip(RoundedCornerShape(12.dp))
+                                .background(Color.White)
+                                .padding(2.dp)
                         ) {
-                            Text("No Preview", color = Color.Gray, fontSize = 10.sp)
+                            result.implementationImage?.let {
+                                Image(
+                                    bitmap = it.asImageBitmap(),
+                                    contentDescription = "Preview",
+                                    modifier = Modifier.fillMaxSize(),
+                                    contentScale = ContentScale.FillBounds
+                                )
+                            }
                         }
                     }
                 }
 
-                // Findings Card
+                // Findings Section
                 Card(
                     modifier = Modifier
                         .fillMaxWidth()
-                        .padding(16.dp),
+                        .padding(horizontal = 16.dp, vertical = 8.dp),
                     colors = CardDefaults.cardColors(containerColor = Color.White),
-                    shape = RoundedCornerShape(16.dp),
-                    elevation = CardDefaults.cardElevation(defaultElevation = 2.dp)
+                    shape = RoundedCornerShape(20.dp),
+                    elevation = CardDefaults.cardElevation(defaultElevation = 1.dp)
                 ) {
-                    Column(modifier = Modifier.padding(16.dp)) {
+                    Column(modifier = Modifier.padding(24.dp)) {
                         Text(
                             text = "Findings",
                             style = MaterialTheme.typography.titleLarge,
-                            fontWeight = FontWeight.Bold
+                            fontWeight = FontWeight.Bold,
+                            color = Color.Black
                         )
-                        HorizontalDivider(modifier = Modifier.padding(vertical = 12.dp))
                         
-                        // Use a basic Text for simplicity in demo, or Markdown-like parser
+                        HorizontalDivider(
+                            modifier = Modifier.padding(vertical = 16.dp),
+                            thickness = 0.5.dp,
+                            color = Color.LightGray
+                        )
+                        
                         Text(
                             text = result.feedback,
-                            style = MaterialTheme.typography.bodyMedium,
-                            lineHeight = 20.sp
+                            style = MaterialTheme.typography.bodyLarge,
+                            lineHeight = 26.sp,
+                            color = Color.DarkGray
                         )
                     }
                 }
                 
-                Spacer(modifier = Modifier.height(32.dp))
+                Spacer(modifier = Modifier.height(40.dp))
             }
         }
     }

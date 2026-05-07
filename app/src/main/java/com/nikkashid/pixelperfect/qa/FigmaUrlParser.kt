@@ -12,7 +12,7 @@ object FigmaUrlParser {
             val uri = Uri.parse(url)
             val segments = uri.pathSegments
             
-            // Expected path: /design/FILE_KEY/NAME or /file/FILE_KEY/NAME
+            // Expected path: /design/FILE_KEY/NAME or /file/FILE_KEY/NAME or /proto/FILE_KEY/NAME
             if (segments.size < 2) return null
             
             val fileKey = segments[1]
