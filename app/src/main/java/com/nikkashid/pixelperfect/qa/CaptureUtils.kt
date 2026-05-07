@@ -3,6 +3,7 @@ package com.nikkashid.pixelperfect.qa
 import android.graphics.Bitmap
 import android.graphics.Canvas
 import android.view.View
+import androidx.core.graphics.createBitmap
 
 object CaptureUtils {
 
@@ -12,10 +13,9 @@ object CaptureUtils {
      * GraphicsLayer.record or using the Compose UI Test library.
      */
     fun captureView(view: View): Bitmap {
-        val bitmap = Bitmap.createBitmap(
+        val bitmap = createBitmap(
             view.width,
-            view.height,
-            Bitmap.Config.ARGB_8888
+            view.height
         )
         val canvas = Canvas(bitmap)
         view.draw(canvas)

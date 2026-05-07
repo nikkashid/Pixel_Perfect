@@ -1,3 +1,44 @@
 <resources>
     <string name="app_name">Pixel Perfect</string>
+    <string name="settings_title">Settings</string>
+    <string name="scan_content_description">Scan</string>
+    <string name="home_content_description">Home</string>
+    <string name="chat_content_description">Chat</string>
+    <string name="add_content_description">Add</string>
+    <string name="profile_content_description">Profile</string>
+    <string name="fetching_ai_message">Fetching Figma design and analyzing\nwith AI…</string>
+
+    <string name="ai_analysis_title">AI UI Analysis</string>
+    <string name="done_button">Done</string>
+    <string name="current_implementation_label">Current Implementation</string>
+    <string name="no_preview_available">No Preview</string>
+    <string name="findings_header">Findings</string>
+
+    <string name="settings_section_account">Account</string>
+    <string name="settings_item_edit_profile">Edit profile</string>
+    <string name="settings_item_security">Security</string>
+    <string name="settings_item_notifications">Notifications</string>
+    <string name="settings_item_privacy">Privacy</string>
+    <string name="settings_section_support">Support &amp; About</string>
+    <string name="settings_item_subscription">My Subscription</string>
+    <string name="settings_item_help">Help &amp; Support</string>
+    <string name="settings_item_terms">Terms and Policies</string>
+    <string name="settings_section_cache">Cache &amp; cellular</string>
+    <string name="settings_item_free_space">Free up space</string>
+    <string name="settings_item_data_saver">Data Saver</string>
+    <string name="settings_actions_label">Actions</string>
+
+    <!-- AI Analysis Context -->
+    <string name="intent_component_settings">Settings Screen</string>
+    <string name="intent_description_settings">Expert Android Settings screen with rounded gray cards and specific icons.</string>
+    <string name="critical_element_background">Background #F3F3F3</string>
+    <string name="critical_element_iconography">Iconography</string>
+    <string name="critical_element_padding">Padding</string>
+
+    <!-- Dummy QA Results -->
+    <string name="dummy_suggestion_remove_eye">Remove eye icon</string>
+    <string name="dummy_suggestion_add_back">Add back button</string>
+    <string name="dummy_suggestion_fix_casing">Fix \'Edit Profile\' casing</string>
+
+    <string name="dummy_feedback_intro">As an expert Android QA engineer, I have thoroughly compared the provided Implementation screenshot with the Figma Design reference. Below is a detailed breakdown of discrepancies and perfectly implemented sections, focusing on actionable feedback for a developer.</string>
 </resources>

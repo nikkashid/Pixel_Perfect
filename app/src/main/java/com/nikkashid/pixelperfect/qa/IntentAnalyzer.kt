@@ -11,6 +11,7 @@ import com.google.ai.client.generativeai.type.content
 import com.nikkashid.pixelperfect.data.AnalysisStatus
 import com.nikkashid.pixelperfect.data.QAAnalysisResult
 import com.nikkashid.pixelperfect.data.VisualIntent
+import com.nikkashid.pixelperfect.ui.theme.UIConstants
 
 class IntentAnalyzer(apiKey: String) {
 
@@ -39,7 +40,7 @@ class IntentAnalyzer(apiKey: String) {
             return QAAnalysisResult(AnalysisStatus.UNCERTAIN, 0f, "ERROR: Invalid API Key format.")
         }
 
-        var lastError = ""
+        var lastError = UIConstants.EMPTY_STRING
         
         for (config in modelConfigs) {
             try {
@@ -101,7 +102,7 @@ class IntentAnalyzer(apiKey: String) {
 
         return QAAnalysisResult(
             status = AnalysisStatus.UNCERTAIN,
-            confidence = 0f,
+            confidence = CONFIDENCE_NONE,
             feedback = "AI Analysis Error: $lastError"
         )
     }
@@ -116,15 +117,20 @@ class IntentAnalyzer(apiKey: String) {
         
         // Clean up any remaining markdown stars just in case the AI ignores instructions
         val cleanFeedback = text.substringAfter("FEEDBACK:")
-            .replace("**", "")
-            .replace("#", "")
+            .replace("**", UIConstants.EMPTY_STRING)
+            .replace("#", UIConstants.EMPTY_STRING)
             .trim()
             .ifEmpty { text }
             
         return QAAnalysisResult(
             status = status,
-            confidence = 0.95f,
+            confidence = CONFIDENCE_HIGH,
             feedback = cleanFeedback
         )
+    }
+
+    companion object {
+        private const val CONFIDENCE_HIGH = 0.95f
+        private const val CONFIDENCE_NONE = 0f
     }
 }

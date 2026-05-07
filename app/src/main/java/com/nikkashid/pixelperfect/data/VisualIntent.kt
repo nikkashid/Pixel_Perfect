@@ -10,8 +10,12 @@ data class VisualIntent(
     val figmaNodeId: String,
     val description: String,
     val criticalElements: List<String>,
-    val allowedVariance: Float = 0.05f // 5% variance allowed for technical noise
-)
+    val allowedVariance: Float = DEFAULT_VARIANCE
+) {
+    companion object {
+        const val DEFAULT_VARIANCE = 0.05f
+    }
+}
 
 /**
  * Result of the AI analysis comparing implementation vs intent.

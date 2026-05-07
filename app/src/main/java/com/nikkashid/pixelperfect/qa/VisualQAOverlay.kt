@@ -16,12 +16,18 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.asImageBitmap
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.compose.ui.window.Dialog
 import androidx.compose.ui.window.DialogProperties
+import com.nikkashid.pixelperfect.R
 import com.nikkashid.pixelperfect.data.QAAnalysisResult
+import com.nikkashid.pixelperfect.ui.theme.CardBackground
+import com.nikkashid.pixelperfect.ui.theme.LaserPurple
+import com.nikkashid.pixelperfect.ui.theme.LightDivider
+import com.nikkashid.pixelperfect.ui.theme.OverlayBackdrop
+import com.nikkashid.pixelperfect.ui.theme.UIConstants
 
 @Composable
 fun VisualQAOverlay(
@@ -34,7 +40,7 @@ fun VisualQAOverlay(
     ) {
         Surface(
             modifier = Modifier.fillMaxSize(),
-            color = Color(0xFFF2F2F7) // Light gray backdrop
+            color = OverlayBackdrop
         ) {
             Column(
                 modifier = Modifier
@@ -45,7 +51,7 @@ fun VisualQAOverlay(
                 Row(
                     modifier = Modifier
                         .fillMaxWidth()
-                        .padding(20.dp),
+                        .padding(UIConstants.HeaderPadding),
                     horizontalArrangement = Arrangement.SpaceBetween,
                     verticalAlignment = Alignment.CenterVertically
                 ) {
@@ -53,25 +59,25 @@ fun VisualQAOverlay(
                         Icon(
                             imageVector = Icons.Default.AutoAwesome,
                             contentDescription = null,
-                            tint = Color(0xFFB066FF),
-                            modifier = Modifier.size(28.dp)
+                            tint = LaserPurple,
+                            modifier = Modifier.size(UIConstants.LargeIconSize)
                         )
-                        Spacer(modifier = Modifier.width(12.dp))
+                        Spacer(modifier = Modifier.width(UIConstants.SmallSpacing))
                         Text(
-                            text = "AI UI Analysis",
+                            text = stringResource(R.string.ai_analysis_title),
                             style = MaterialTheme.typography.headlineSmall,
                             fontWeight = FontWeight.Bold,
-                            fontSize = 22.sp,
+                            fontSize = UIConstants.TitleFontSize,
                             color = Color.Black
                         )
                     }
                     Button(
                         onClick = onDismiss,
                         colors = ButtonDefaults.buttonColors(containerColor = Color.White, contentColor = Color.Black),
-                        shape = RoundedCornerShape(24.dp),
-                        elevation = ButtonDefaults.buttonElevation(defaultElevation = 2.dp)
+                        shape = RoundedCornerShape(UIConstants.LargeSpacing),
+                        elevation = ButtonDefaults.buttonElevation(defaultElevation = UIConstants.DialogElevation)
                     ) {
-                        Text("Done", fontWeight = FontWeight.SemiBold)
+                        Text(stringResource(R.string.done_button), fontWeight = FontWeight.SemiBold)
                     }
                 }
 
@@ -79,31 +85,36 @@ fun VisualQAOverlay(
                 Box(
                     modifier = Modifier
                         .fillMaxWidth()
-                        .padding(bottom = 24.dp),
+                        .padding(bottom = UIConstants.LargeSpacing),
                     contentAlignment = Alignment.Center
                 ) {
                     Column(horizontalAlignment = Alignment.CenterHorizontally) {
                         Text(
-                            text = "Current Implementation",
+                            text = stringResource(R.string.current_implementation_label),
                             style = MaterialTheme.typography.labelMedium,
                             color = Color.Gray,
-                            modifier = Modifier.padding(bottom = 8.dp)
+                            modifier = Modifier.padding(bottom = UIConstants.SmallSpacing)
                         )
                         Box(
                             modifier = Modifier
-                                .width(100.dp)
-                                .height(200.dp)
-                                .clip(RoundedCornerShape(12.dp))
+                                .width(UIConstants.PreviewWidth)
+                                .height(UIConstants.PreviewHeight)
+                                .clip(RoundedCornerShape(UIConstants.SmallSpacing))
                                 .background(Color.White)
-                                .padding(2.dp)
+                                .padding(UIConstants.TinySpacing)
                         ) {
                             result.implementationImage?.let {
                                 Image(
                                     bitmap = it.asImageBitmap(),
-                                    contentDescription = "Preview",
+                                    contentDescription = stringResource(R.string.current_implementation_label),
                                     modifier = Modifier.fillMaxSize(),
                                     contentScale = ContentScale.FillBounds
                                 )
+                            } ?: Box(
+                                modifier = Modifier.fillMaxSize().background(Color(0xFFE5E5EA)),
+                                contentAlignment = Alignment.Center
+                            ) {
+                                Text(stringResource(R.string.no_preview_available), color = Color.Gray, fontSize = 10.sp)
                             }
                         }
                     }
@@ -113,35 +124,35 @@ fun VisualQAOverlay(
                 Card(
                     modifier = Modifier
                         .fillMaxWidth()
-                        .padding(horizontal = 16.dp, vertical = 8.dp),
-                    colors = CardDefaults.cardColors(containerColor = Color.White),
-                    shape = RoundedCornerShape(20.dp),
-                    elevation = CardDefaults.cardElevation(defaultElevation = 1.dp)
+                        .padding(horizontal = UIConstants.MediumSpacing, vertical = UIConstants.SmallSpacing),
+                    colors = CardDefaults.cardColors(containerColor = CardBackground),
+                    shape = RoundedCornerShape(UIConstants.LargeCornerRadius),
+                    elevation = CardDefaults.cardElevation(defaultElevation = UIConstants.CardElevation)
                 ) {
-                    Column(modifier = Modifier.padding(24.dp)) {
+                    Column(modifier = Modifier.padding(UIConstants.LargeSpacing)) {
                         Text(
-                            text = "Findings",
+                            text = stringResource(R.string.findings_header),
                             style = MaterialTheme.typography.titleLarge,
                             fontWeight = FontWeight.Bold,
                             color = Color.Black
                         )
                         
                         HorizontalDivider(
-                            modifier = Modifier.padding(vertical = 16.dp),
-                            thickness = 0.5.dp,
-                            color = Color.LightGray
+                            modifier = Modifier.padding(vertical = UIConstants.MediumSpacing),
+                            thickness = UIConstants.DividerThickness,
+                            color = LightDivider
                         )
                         
                         Text(
                             text = result.feedback,
                             style = MaterialTheme.typography.bodyLarge,
-                            lineHeight = 26.sp,
+                            lineHeight = UIConstants.BodyLineHeight,
                             color = Color.DarkGray
                         )
                     }
                 }
                 
-                Spacer(modifier = Modifier.height(40.dp))
+                Spacer(modifier = Modifier.height(UIConstants.ExtraLargeSpacing))
             }
         }
     }

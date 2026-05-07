@@ -1,6 +1,6 @@
 package com.nikkashid.pixelperfect.qa
 
-import android.net.Uri
+import androidx.core.net.toUri
 
 object FigmaUrlParser {
     /**
@@ -9,7 +9,7 @@ object FigmaUrlParser {
      */
     fun parse(url: String): FigmaLinkData? {
         return try {
-            val uri = Uri.parse(url)
+            val uri = url.toUri()
             val segments = uri.pathSegments
             
             // Expected path: /design/FILE_KEY/NAME or /file/FILE_KEY/NAME or /proto/FILE_KEY/NAME
@@ -26,7 +26,7 @@ object FigmaUrlParser {
             } else {
                 null
             }
-        } catch (e: Exception) {
+        } catch (_: Exception) {
             null
         }
     }
