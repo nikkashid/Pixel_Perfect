@@ -23,28 +23,25 @@ class IntentAnalyzer(private val apiKey: String) {
         figmaDesign: Bitmap,
         intent: VisualIntent
     ): QAAnalysisResult {
+        // Updated Prompt matching the one provided in the mail
         val prompt = """
-            Compare these two images of a UI component (${intent.componentId}).
-            Image 1: The actual Android implementation.
-            Image 2: The design source of truth from Figma.
+            I am providing two images: 'design.png' (Figma source) and 'reality.png' (current build). 
+            Compare them for visual discrepancies in layout, padding, font-weight, and color. 
+            Output a JSON list of defects. 
             
+            Context: This is a ${intent.componentId}. 
             Intent Description: ${intent.description}
             
-            Task:
-            1. Identify visual differences (color, spacing, typography).
-            2. Classify if the difference is 'TECHNICAL_NOISE' (anti-aliasing, sub-pixel shifts) or a 'VISUAL_REGRESSION'.
-            3. Provide specific feedback for the developer.
-            
-            Format your response as:
+            Format your response for a human developer with:
             STATUS: [MATCH / VISUAL_REGRESSION / TECHNICAL_NOISE]
-            FEEDBACK: [Reasoning]
+            FEEDBACK: A detailed breakdown of discrepancies and perfectly implemented sections, focusing on actionable feedback.
         """.trimIndent()
 
         return try {
             val response = model.generateContent(
                 content {
-                    image(screenshot)
-                    image(figmaDesign)
+                    image(figmaDesign) // design.png
+                    image(screenshot)  // reality.png
                     text(prompt)
                 }
             )

@@ -1,44 +1,67 @@
-# PixelPerfect AI - Implementation Plan
+# PixelPerfect AI - Hackathon Implementation Guide
 
-## 1. Core Vision
-Bridge the "logic-visual gap" by moving from simple pixel-diffing to AI-driven **Intent-Aware Visual QA**.
+## 1. Core Vision & Problem Statement
+PixelPerfect AI solves the **"Logic-Visual Gap"** in modern development. While traditional tests confirm that code *runs*, they fail to verify if the code honors the **Design Intent**. 
+
+Our solution moves the QA paradigm from brittle pixel-matching to **Intent-Aware Visual Assurance** using Multi-modal LLMs.
+
+---
 
 ## 2. Technical Architecture
 
 ### A. Android Client (SDK)
-- **Capture Module**: Utility to capture Composable states as high-resolution Bitmaps.
-- **Metadata Tagging**: Attach component names and Figma node IDs to screenshots.
-- **Reporting Interface**: Display AI feedback directly in the app's debug builds.
+- **Settings Dashboard**: A high-fidelity replication of the app interface (Settings UI) with an integrated "Scan & Match" workflow.
+- **Component Capture**: `CaptureUtils` captures real-time snapshots of the implementation.
+- **Figma Connector**: `FigmaService` uses the Figma REST API to fetch live, high-resolution renders of the "Source of Truth" design.
+- **URL Parser**: `FigmaUrlParser` extracts File Keys and Node IDs from standard Figma prototype/design links.
 
 ### B. AI Engine (Gemini 1.5 Pro)
-- **Multi-modal Analysis**: Compares {Figma Render} vs {App Screenshot}.
-- **Intent Filtering**: Distinguishes between 'Technical Noise' and 'UX Regressions'.
-- **Actionable Insights**: Provides specific CSS/Compose property suggestions.
+- **Multi-modal Analysis**: Uses `model.generate_content([design, reality, prompt])` to compare the two images.
+- **Intent-Aware Prompting**: Instructed to ignore "Technical Noise" (anti-aliasing, rendering shifts) and focus on UX discrepancies.
+- **Actionable Feedback**: Classifies results as `MATCH`, `TECHNICAL_NOISE`, or `VISUAL_REGRESSION` and provides specific fix suggestions.
 
-## 3. Completed Milestones ✅
-- [x] **Project Scoping**: Defined "Intent-Aware" vs "Pixel-based" strategy.
-- [x] **AI Integration**: Integrated Google AI SDK (Gemini) with multi-modal prompting.
-- [x] **SDK Hook**: Created `.pixelPerfect()` modifier for component registration.
-- [x] **Visual Reporting**: Built full-screen `VisualQAOverlay` for side-by-side comparison.
+---
 
-## 4. Remaining Hackathon Tasks 🚀
+## 3. Key Features & Progress ✅
 
-### Step 1: Real Component Capture (High Priority)
-- Finish the `CaptureController` to extract 1:1 Bitmaps from Composables using `GraphicsLayer`.
-- Ensure transparency is handled correctly for isolated component comparison.
+- [x] **"Scan & Match" Workflow**: Top-right Eye icon triggers the end-to-end analysis.
+- [x] **Live Figma Fetching**: Integrated OkHttp networking to pull live renders from Figma Node IDs.
+- [x] **AI Integration**: Full Google AI SDK (Gemini) integration with custom prompts.
+- [x] **Expert QA Reporting**: Full-screen `VisualQAOverlay` with side-by-side comparison and detailed "Findings" card.
+- [x] **Secrets Management**: Integrated `secrets-gradle-plugin` to protect API keys.
 
-### Step 2: Figma Live Sync
-- Implement OAuth2/Token-based authentication for Figma.
-- Connect `FigmaService` to fetch live renders of tagged Node IDs.
+---
 
-### Step 3: Prompt Refinement
-- Fine-tune the Gemini prompt to handle Android-specific rendering quirks (e.g., elevation shadows).
+## 4. Developer Setup (Your Next Steps) 🛠️
 
-### Step 4: PR Bot (Final Stretch)
-- Create a script/action to post the `QAAnalysisResult` as a comment on GitHub Pull Requests.
+### 1. Configure Secrets
+Open `local.properties` and add your real tokens:
+```properties
+GEMINI_API_KEY=AIzaSy... (from Google AI Studio)
+FIGMA_TOKEN=figd_... (from Figma Settings)
+```
 
-## 5. Key Components
-1. `FigmaService`: Figma API wrapper.
-2. `IntentAnalyzer`: AI logic using Gemini 1.5 Pro.
-3. `PixelPerfectModifier`: The developer entry point.
-4. `VisualQAOverlay`: The user-facing reporting tool.
+### 2. Verify Connectivity
+- Ensure the device/emulator has **Internet access**.
+- Check `AndroidManifest.xml` for `<uses-permission android:name="android.permission.INTERNET" />`.
+
+### 3. Test the "Break-Fix" Flow
+1. Change a visual property in `MainActivity.kt` (e.g., change a font weight or color).
+2. Run the app and click the **Eye icon** (Top Right).
+3. Observe the AI identifying the regression in the **Findings** report.
+
+---
+
+## 5. Presentation Strategy 🎤
+
+### The "Hook"
+Show the **Settings Screen**. It looks great, but is it perfect? Most developers would say "Yes," but PixelPerfect AI knows better.
+
+### The "Magic"
+1. Paste the Figma Link.
+2. Click **Scan**.
+3. Show the **Loading State**: "Fetching Figma design and analyzing with AI..."
+4. Reveal the **Findings Report**: Point out how the AI caught the "Regular" font weight when the design called for "Bold," and how it suggested the exact fix.
+
+### The "Value"
+Explain that this removes the "Velocity Tax" of manual design reviews and eliminates "Ghost Regressions."
