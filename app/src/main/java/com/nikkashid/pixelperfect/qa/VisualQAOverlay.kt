@@ -18,6 +18,7 @@ import androidx.compose.ui.graphics.asImageBitmap
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.compose.ui.window.Dialog
 import androidx.compose.ui.window.DialogProperties
@@ -130,12 +131,30 @@ fun VisualQAOverlay(
                     elevation = CardDefaults.cardElevation(defaultElevation = UIConstants.CardElevation)
                 ) {
                     Column(modifier = Modifier.padding(UIConstants.LargeSpacing)) {
-                        Text(
-                            text = stringResource(R.string.findings_header),
-                            style = MaterialTheme.typography.titleLarge,
-                            fontWeight = FontWeight.Bold,
-                            color = Color.Black
-                        )
+                        Row(
+                            modifier = Modifier.fillMaxWidth(),
+                            horizontalArrangement = Arrangement.SpaceBetween,
+                            verticalAlignment = Alignment.CenterVertically
+                        ) {
+                            Text(
+                                text = stringResource(R.string.findings_header),
+                                style = MaterialTheme.typography.titleLarge,
+                                fontWeight = FontWeight.Bold,
+                                color = Color.Black
+                            )
+                            // Display Data Source Badge
+                            Surface(
+                                color = LaserPurple.copy(alpha = 0.1f),
+                                shape = RoundedCornerShape(UIConstants.TinySpacing)
+                            ) {
+                                Text(
+                                    text = result.dataSource,
+                                    modifier = Modifier.padding(horizontal = 8.dp, vertical = 4.dp),
+                                    style = MaterialTheme.typography.labelSmall,
+                                    color = LaserPurple
+                                )
+                            }
+                        }
                         
                         HorizontalDivider(
                             modifier = Modifier.padding(vertical = UIConstants.MediumSpacing),

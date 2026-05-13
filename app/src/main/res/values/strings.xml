@@ -28,6 +28,20 @@
     <string name="settings_item_data_saver">Data Saver</string>
     <string name="settings_actions_label">Actions</string>
 
+    <!-- Edit Profile Screen -->
+    <string name="edit_profile_title">Edit Profile</string>
+    <string name="save_changes_button">Save changes</string>
+    <string name="label_name">Name</string>
+    <string name="label_email">Email</string>
+    <string name="label_password">Password</string>
+    <string name="label_dob">Date of Birth</string>
+    <string name="label_country">Country/Region</string>
+    <string name="value_name">Melissa Peters</string>
+    <string name="value_email">melpeters@gmail.com</string>
+    <string name="value_password">***********</string>
+    <string name="value_dob">23/05/1995</string>
+    <string name="value_country">Nigeria</string>
+
     <!-- AI Analysis Context -->
     <string name="intent_component_settings">Settings Screen</string>
     <string name="intent_description_settings">Expert Android Settings screen with rounded gray cards and specific icons.</string>

@@ -26,7 +26,8 @@ data class QAAnalysisResult(
     val feedback: String,
     val suggestions: List<String> = emptyList(),
     val implementationImage: Bitmap? = null,
-    val designImage: Bitmap? = null
+    val designImage: Bitmap? = null,
+    val dataSource: String = "Unknown"
 )
 
 enum class AnalysisStatus {

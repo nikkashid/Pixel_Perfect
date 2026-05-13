@@ -51,35 +51,32 @@ class IntentAnalyzer(apiKey: String) {
                     requestOptions = RequestOptions(apiVersion = config.second)
                 )
 
-                // Prompt optimized for clean, professional output without markdown stars
                 val prompt = if (figmaDesign != null) {
                     """
-                        You are a senior Android QA Engineer. Compare 'design.png' (Figma source) and 'reality.png' (current build) for visual discrepancies in layout, padding, font-weight, and color.
+                        You are a senior Android QA Engineer. Compare 'design.png' (Figma source) and 'reality.png' (current build).
                         
                         Context: ${intent.componentId}
                         Intent: ${intent.description}
                         
+                        TASKS:
+                        1. If the implementation perfectly matches the design, respond with STATUS: MATCH and a brief praise.
+                        2. If there are discrepancies, respond with STATUS: VISUAL_REGRESSION and details.
+                        
                         CRITICAL INSTRUCTIONS:
-                        1. Do NOT use markdown symbols like stars (**) or hashtags (#).
-                        2. Use professional, plain text headings.
-                        3. Provide specific, actionable feedback for a developer.
+                        - Do NOT use markdown symbols (** or #).
+                        - Use plain text.
                         
                         Response Format:
-                        STATUS: [MATCH / VISUAL_REGRESSION / TECHNICAL_NOISE]
-                        FEEDBACK: [Your detailed analysis]
+                        STATUS: [MATCH / VISUAL_REGRESSION]
+                        FEEDBACK: [Your analysis]
                     """.trimIndent()
                 } else {
                     """
-                        Analyze 'reality.png' (Android Settings screen implementation).
-                        Check for text casing consistency and Material 3 iconography.
-                        
-                        CRITICAL INSTRUCTIONS:
-                        1. Do NOT use markdown symbols like stars (**) or hashtags (#).
-                        2. Use professional, plain text.
-                        
+                        Analyze 'reality.png' (Android implementation).
+                        Check for Material 3 standard compliance.
                         Response Format:
                         STATUS: [VISUAL_REGRESSION]
-                        FEEDBACK: [Your detailed analysis]
+                        FEEDBACK: [Your analysis]
                     """.trimIndent()
                 }
 
@@ -115,7 +112,6 @@ class IntentAnalyzer(apiKey: String) {
             else -> AnalysisStatus.VISUAL_REGRESSION
         }
         
-        // Clean up any remaining markdown stars just in case the AI ignores instructions
         val cleanFeedback = text.substringAfter("FEEDBACK:")
             .replace("**", UIConstants.EMPTY_STRING)
             .replace("#", UIConstants.EMPTY_STRING)

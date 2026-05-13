@@ -4,6 +4,7 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
+import com.nikkashid.pixelperfect.data.repository.VisualQARepositoryImpl
 import com.nikkashid.pixelperfect.domain.usecase.AnalyzeVisualQAUseCase
 import com.nikkashid.pixelperfect.domain.usecase.GetSettingsItemsUseCase
 import com.nikkashid.pixelperfect.qa.FigmaService
@@ -16,10 +17,16 @@ class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         
-        // Manual DI for Hackathon - Injecting dependencies into the ViewModel
+        // Manual DI for Hackathon - Architecture: Interactor + Repository Pattern
         val figmaService = FigmaService(BuildConfig.FIGMA_TOKEN)
         val intentAnalyzer = IntentAnalyzer(BuildConfig.GEMINI_API_KEY)
-        val analyzeUseCase = AnalyzeVisualQAUseCase(figmaService, intentAnalyzer)
+        
+        // Repository handles Data Fetching (Live API vs Local Resources)
+        val repository = VisualQARepositoryImpl(applicationContext, figmaService)
+        
+        // Interactor handles Business Logic (Coordination of Analysis)
+        val analyzeUseCase = AnalyzeVisualQAUseCase(repository, intentAnalyzer)
+
         val getItemsUseCase = GetSettingsItemsUseCase()
         val viewModel = SettingsViewModel(analyzeUseCase, getItemsUseCase)
 
